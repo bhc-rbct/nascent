@@ -51,7 +51,7 @@ workflow TRANSCRIPT_INDENTIFICATION {
     ch_chr = fasta
         .splitFasta(record: [id: true])
         .map { record -> record.id }
-        .filter { !(it in skip_chr) }
+        .filter { it ==/^chr([0-9]+|X|Y)$/ }
 
     // NOTE https://github.com/hyulab/PINTS/issues/15
     // We want to run PINTS once per biological/technical sample.
